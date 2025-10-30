@@ -62,7 +62,7 @@ int compareSquare(int sidea, int sideb)
 }
 int main()
 {
-	int repeatF, side,choise,sidea,sideb;
+	int repeatF, sideA,choise,sideB;
 	char symbol;
 
 	setlocale(LC_ALL, "RUS");
@@ -82,26 +82,26 @@ int main()
 		{
 			case 1:
 				printf("Введите сторону квадрата: ");
-				scanf("%d", &side);
-				printf("Площадь = %d", area_square(side));
+				scanf("%d", &sideA);
+				printf("Площадь = %d", area_square(sideA));
 				break;
 			case 2:
 				Opred();
 				break;
 			case 3:
 				printf("Введите сторону квадрата и символ через пробел: ");
-				scanf("%d %c", &side, &symbol);
-				Draw(side, symbol);
+				scanf("%d %c", &sideA, &symbol);
+				Draw(sideA, symbol);
 				break;
 			case 4:
 				printf("Введите сторону квадрата: ");
-				scanf("%d", &side);
-				get_side(side);
+				scanf("%d", &sideA);
+				get_side(sideA);
 				break;
 			case 5:
 				printf("Введите стороны квадратов: ");
-				scanf("%d %d", &sidea,&sideb);
-				compareSquare(sidea, sideb);
+				scanf("%d %d", &sideA,&sideB);
+				compareSquare(sideA, sideB);
 				break;
 		}
 
