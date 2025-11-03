@@ -17,52 +17,29 @@
 3. Запросить у пользователя side, symbol
 4. В цикле `int i` от 1 до side (вкл)
     	a. Перевод каретки на новую строку;
-      b. В цикле `int j` от 1 до side (вкл)
+      	b. В цикле `int j` от 1 до side (вкл)
              Выводим `symbol`
 6. Спросить у пользователя хочет ли он повторить, если да то к 3 пункту, иначе 7
 7. **Конец**
 
 ### Блок-схема
-![Блок-схема алгоритма](Lab10_schema.jpg)
+![Блок-схема алгоритма](Lab10.1_schema.jpg)
 
- [Ссылка на блок-схему](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Lab10_schema.drawio&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1I1LVTH9flXqGk9UXMbxH1Ug8d2qp0Z26%26export%3Ddownload)
+ [Ссылка на блок-схему](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Lab10.1_schema.drawio&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1JpmhIfzJodOCcWVEdJUO9KuQrloiS01t%26export%3Ddownload)
 
  ## 2. Реализация программы
 
 ```c
 #include <locale.h>
 #include <stdio.h>
-int area_square(int side)
-{
-	int S = side * side;
-	return S;
-}
-int Opred()
-{
-	puts("Квадрат — правильный четырёхугольник, то есть плоский четырёхугольник, у которого все углы и все стороны равны.\n Каждый угол квадрата — прямой");
-}
-int Draw(int side, char symbol)
-{
-	for (int i = 1; i <= side; i++)
-	{
-		printf("\n");
-		for (int j = 1; j <= side; j++)
-			printf("%c", symbol);
-	}
-}
-int get_side(int side)
-{
-	printf("Сторона = %d",side);
-}
-int compareSquare(int sidea, int sideb)
-{
-	int S1 = sidea * sidea;
-	int S2 = sideb * sideb;
-	return S1 > S2 ? S1 - S2 : S2 - S1;
-}
+
+int area_square(int);
+int Opred();
+int Draw(int, int, int, char);
+int compareSquare(int, int);
 int main()
 {
-	int repeatF, sideA,choise,sideB;
+	int repeatF, choise,sidea,sideb, sidec;
 	char symbol;
 
 	setlocale(LC_ALL, "RUS");
@@ -74,34 +51,28 @@ int main()
 		puts("1) Посчитать площадь");
 		puts("2) Вывести определение");
 		puts("3) Нарисовать фигуру");
-		puts("4) Вывести сторону");
-		puts("5) Сравнить площади двух фигур");
+		puts("4) Сравнить площади двух фигур");
 		scanf("%d", &choise);
 
 		switch (choise)
 		{
 			case 1:
 				printf("Введите сторону квадрата: ");
-				scanf("%d", &sideA);
-				printf("Площадь = %d", area_square(sideA));
+				scanf("%d", &sidea);
+				printf("Площадь = %d", area_square(sidea));
 				break;
 			case 2:
 				Opred();
 				break;
 			case 3:
-				printf("Введите сторону квадрата и символ через пробел: ");
-				scanf("%d %c", &sideA, &symbol);
-				Draw(sideA, symbol);
+				printf("Введите стороны квадратов и символ через пробел: ");
+				scanf("%d %d %d %c", &sidea, &sideb, &sidec, &symbol);
+				Draw(sidea,sideb,sidec, symbol);
 				break;
 			case 4:
-				printf("Введите сторону квадрата: ");
-				scanf("%d", &sideA);
-				get_side(sideA);
-				break;
-			case 5:
 				printf("Введите стороны квадратов: ");
-				scanf("%d %d", &sideA,&sideB);
-				printf("%d",compareSquare(sideA, sideB));
+				scanf("%d %d", &sidea,&sideb);
+				printf("%d",compareSquare(sidea, sideb));
 				break;
 		}
 
@@ -112,6 +83,55 @@ int main()
 	puts("");
 	system("pause");
 }
+int area_square(int side)
+{
+	int S = side * side;
+	return S;
+}
+int Opred()
+{
+	puts("Квадрат — правильный четырёхугольник, то есть плоский четырёхугольник, у которого все углы и все стороны равны.\n Каждый угол квадрата — прямой");
+}
+int Draw(int sidea, int sideb, int sidec, char symbol)
+{
+	int bigSide = sidea + sideb - sidec;
+	for (int i = 0; i < bigSide; i++) {
+
+		for (int j = 0; j < bigSide; j++) {
+			if (i < bigSide - sideb && j < sidea)
+			{
+				printf("%c",symbol);
+			}
+			else if (i >= sidea && j < bigSide - sideb) 
+			{
+				printf(" ");
+			}
+			else if (i >= sidea && j >= bigSide - sideb)
+			{
+				printf("%c", symbol);
+			}
+			else if (i >= bigSide - sideb && i < bigSide-(sideb-sidec))
+			{
+				if (j >= bigSide - sidea && j < bigSide - (sidea - sidec))
+				{
+					printf(" ");
+				}
+				else
+				{
+					printf("%c", symbol);
+				}
+			}
+		}
+		printf("\n");
+	}
+}
+int compareSquare(int sidea, int sideb)
+{
+	int S1 = sidea * sidea;
+	int S2 = sideb * sideb;
+	return S1 > S2 ? S1 - S2 : S2 - S1;
+}
+
 ```
 # 3. Результаты работы программы
 Выберите тип операции:
